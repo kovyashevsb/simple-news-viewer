@@ -1,0 +1,22 @@
+PODS:
+  - Kingfisher (5.8.3):
+    - Kingfisher/Core (= 5.8.3)
+  - Kingfisher/Core (5.8.3)
+  - Typist (1.4.2)
+
+DEPENDENCIES:
+  - Kingfisher (~> 5.0)
+  - Typist (~> 1.4)
+
+SPEC REPOS:
+  trunk:
+    - Kingfisher
+    - Typist
+
+SPEC CHECKSUMS:
+  Kingfisher: b7e4cb65ff24c264bd2a1284b75b974d907afd94
+  Typist: 06465ab9867782aa6c81e38f073dfc01dab73deb
+
+PODFILE CHECKSUM: 3591f58a3055d4ead157eca750b43d1b2199498a
+
+COCOAPODS: 1.8.4

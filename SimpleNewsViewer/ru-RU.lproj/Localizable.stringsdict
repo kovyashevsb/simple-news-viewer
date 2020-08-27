@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>unread counter</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>нет непрочитанных</string>
+			<key>one</key>
+			<string>%u непрочитанная</string>
+			<key>other</key>
+			<string>%u непрочитанных</string>
+		</dict>
+	</dict>
+	<key>minutes ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>%u минут назад</string>
+			<key>one</key>
+			<string>%u минуту назад</string>
+			<key>two</key>
+			<string>%u минуты назад</string>
+			<key>few</key>
+			<string>%u минуты назад</string>
+			<key>many</key>
+			<string>%u минут назад</string>
+			<key>other</key>
+			<string>%u минуты назад</string>
+		</dict>
+	</dict>
+	<key>hours ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>%u часов назад</string>
+			<key>one</key>
+			<string>%u час назад</string>
+			<key>two</key>
+			<string>%u часа назад</string>
+			<key>few</key>
+			<string>%u часа назад</string>
+			<key>many</key>
+			<string>%u часов назад</string>
+			<key>other</key>
+			<string>%u часа назад</string>
+		</dict>
+	</dict>
+	<key>days ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>%u дней назад</string>
+			<key>one</key>
+			<string>%u день назад</string>
+			<key>two</key>
+			<string>%u  дня назад</string>
+			<key>few</key>
+			<string>%u дня назад</string>
+			<key>many</key>
+			<string>%u дней назад</string>
+			<key>other</key>
+			<string>%u дня назад</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

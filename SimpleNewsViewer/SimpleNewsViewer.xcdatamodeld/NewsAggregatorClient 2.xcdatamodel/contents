@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="18G2022" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ManagedNewsArticle" representedClassName=".ManagedNewsArticle" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String"/>
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="imageURL" optional="YES" attributeType="URI"/>
+        <attribute name="isRead" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="publishedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="sourceID" optional="YES" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+    </entity>
+    <entity name="ManagedNewsChannel" representedClassName=".ManagedNewsChannel" syncable="YES">
+        <attribute name="about" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="isEnabled" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="lastArticle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedNewsArticle"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <elements>
+        <element name="ManagedNewsArticle" positionX="160" positionY="192" width="128" height="163"/>
+        <element name="ManagedNewsChannel" positionX="-45" positionY="54" width="128" height="118"/>
+    </elements>
+</model>

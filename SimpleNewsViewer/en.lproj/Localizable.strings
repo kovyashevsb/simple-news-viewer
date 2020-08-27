@@ -1,0 +1,38 @@
+/* 
+  Localizable.strings
+  SimpleNewsViewer
+
+  Created by Sergey on 02/07/2020.
+  Copyright © 2020 Sergey. All rights reserved.
+*/
+
+//MARK: - DefaultViewModel
+"No news in the channel %@" = "There is no news in the channel %@, try to update later";
+"No news in the favorite channels" = "There is no news in the favorite channels, try to update later";
+"No results" = "No results";
+
+//MARK: - ArticlesTableViewCell
+"unknown" = "unknown";
+"Now" = "Now";
+"minute ago" = "minute ago";
+"hour ago" = "hour ago";
+"day ago" = "day ago";
+
+//MARK: - ErrorLabel
+"server error" = "Couldn't update news feed. Please try again later.";
+"network error" = "Couldn't update news feed. Please check your Internet connection and try again.";
+"decoding error" = "Couldn't update news feed. Please try again later.";
+
+//MARK: - NewsSearchViewController
+"Type something here to search" = "Type something here to search";
+"Search" = "Search";
+
+//MARK: - ArticlesViewController
+"All News" = "All News";
+
+//MARK: - NewsChannelsViewController
+"Channels" = "Channels";
+
+//MARK: - NewsChannelsChoosingViewController
+"News" = "News";
+"Select your favorite channels!" = "Select your favorite channels!";

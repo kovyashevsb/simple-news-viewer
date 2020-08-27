@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P3F-wZ-MgJ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem id="jeU-qn-G81"/>
+                                </items>
+                            </navigationBar>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpl-ni-EGY">
+                                <rect key="frame" x="0.0" y="813" width="414" height="83"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem title="" image="news" id="6KT-nW-a5s"/>
+                                    <tabBarItem title="" image="news-search" id="pQW-H7-7dM"/>
+                                </items>
+                            </tabBar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="P3F-wZ-MgJ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="2BB-1q-Dzb"/>
+                            <constraint firstItem="P3F-wZ-MgJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ech-tq-gNR"/>
+                            <constraint firstItem="Hpl-ni-EGY" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="GGe-Xq-hzZ"/>
+                            <constraint firstItem="Hpl-ni-EGY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="n0E-bo-55X"/>
+                            <constraint firstItem="P3F-wZ-MgJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="uHy-3P-bIs"/>
+                            <constraint firstItem="Hpl-ni-EGY" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="wVI-pZ-aaI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-459" y="378"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="news" width="25" height="25"/>
+        <image name="news-search" width="25" height="25"/>
+    </resources>
+</document>
