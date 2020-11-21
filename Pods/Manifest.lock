@@ -2,21 +2,25 @@ PODS:
   - Kingfisher (5.8.3):
     - Kingfisher/Core (= 5.8.3)
   - Kingfisher/Core (5.8.3)
+  - RxSwift (5.1.0)
   - Typist (1.4.2)
 
 DEPENDENCIES:
   - Kingfisher (~> 5.0)
+  - RxSwift (= 5.1.0)
   - Typist (~> 1.4)
 
 SPEC REPOS:
   trunk:
     - Kingfisher
+    - RxSwift
     - Typist
 
 SPEC CHECKSUMS:
   Kingfisher: b7e4cb65ff24c264bd2a1284b75b974d907afd94
+  RxSwift: ad5874f24bb0dbffd1e9bb8443604e3578796c7a
   Typist: 06465ab9867782aa6c81e38f073dfc01dab73deb
 
-PODFILE CHECKSUM: 3591f58a3055d4ead157eca750b43d1b2199498a
+PODFILE CHECKSUM: 5f69a29b7f0d069d63beebbcbe00fc582b8a2eca
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.0.rc.1

@@ -2,6 +2,9 @@
 # platform :ios, '9.0'
 
 target 'SimpleNewsViewer' do
+
+  pod 'RxSwift', '5.1.0'
+  
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
