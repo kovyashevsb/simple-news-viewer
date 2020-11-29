@@ -9,6 +9,8 @@
 import UIKit
 import SafariServices
 import Typist
+import RxSwift
+import RxCocoa
 
 class NewsSearchViewController: UIViewController {
     // MARK: - Properties
@@ -20,7 +22,8 @@ class NewsSearchViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var errorLabel: ErrorLabel!
     @IBOutlet private weak var emptyMessageLabel: UILabel!
-    
+    //Rx
+    private let disposeBag = DisposeBag()
     // MARK: - Lifecycle
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -47,35 +50,30 @@ class NewsSearchViewController: UIViewController {
         tableView.tableFooterView = UIView() //hide separators between empty cells
         
         newsViewModel.onLoading = { [weak self] (isLoading) in
-            guard let self = self else { return }
-            if isLoading {
-                self.tableView.tableHeaderView = self.activityIndicator
-                self.tableView.reloadData()
-                self.activityIndicator.startAnimating()
-            } else {
-                self.tableView.tableHeaderView = UIView()
-                self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
-            }
+            self?.configure(withLoadingState: isLoading)
         }
         newsViewModel.onChangeState = { [weak self] (state) in
-            guard let self = self else { return }
-            switch state {
-            case .failure(let error):
-                self.errorLabel.set(with: error)
-            case .noItems(let message):
-                self.errorLabel.text = ""
-                self.emptyMessageLabel.text = message
-                self.emptyMessageLabel.isHidden = false
-                self.items = []
-                self.tableView.reloadData()
-            case .items(let items):
-                self.errorLabel.text = ""
-                self.emptyMessageLabel.isHidden = true
-                self.items = items
-                self.tableView.reloadData()
-            }
+            self?.configure(withState: state)
         }
+        //Rx
+        searchVC.searchBar.rx.text.orEmpty
+            .debug("searchBar.text", trimOutput: false)
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .flatMapLatest({ [weak self] keywords -> Single<NewsViewModelState> in
+                guard let self = self else { return Single.error(CommonError.invalidState) }
+                self.configure(withLoadingState: true)
+                return self.newsViewModel.searchArticles(withKeywords: keywords)
+            })
+            .observeOn(MainScheduler.instance)
+//            .trackActivity({ [weak self] (isLoading) in
+//                self?.configure(withLoadingState: isLoading)
+//            })
+            .subscribe(onNext: { [weak self] state in
+                self?.configure(withState: state)
+                self?.configure(withLoadingState: false)
+            })
+            .disposed(by: disposeBag)
     }
     
     //MARK: - Private methods
@@ -91,6 +89,36 @@ class NewsSearchViewController: UIViewController {
                 self.tableView.contentInset = insets
             }
             .start()
+    }
+    
+    private func configure(withState state: NewsViewModelState) {
+        switch state {
+        case .failure(let error):
+            errorLabel.set(with: error)
+        case .noItems(let message):
+            errorLabel.text = ""
+            emptyMessageLabel.text = message
+            emptyMessageLabel.isHidden = false
+            items = []
+            tableView.reloadData()
+        case .items(let items):
+            errorLabel.text = ""
+            emptyMessageLabel.isHidden = true
+            self.items = items
+            tableView.reloadData()
+        }
+    }
+    
+    private func configure(withLoadingState isLoading: Bool) {
+        if isLoading {
+            tableView.tableHeaderView = self.activityIndicator
+            tableView.reloadData()
+            activityIndicator.startAnimating()
+        } else {
+            tableView.tableHeaderView = UIView()
+            tableView.reloadData()
+            activityIndicator.stopAnimating()
+        }
     }
 }
 

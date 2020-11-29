@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 enum NewsAPIError: Error {
     case invalidAPIKey
@@ -41,4 +42,7 @@ protocol NewsAPI {
     func loadNewsChannels(completion: @escaping (Result<[NewsChannelDTO], NewsAPIError>) -> Void)
     func loadArticles(fromChannels withIDs: [NewsChannel.UID], completion: @escaping (Result<[NewsArticleDTO], NewsAPIError>) -> Void)
     func loadArticles(with keywords: String, completion: @escaping (Result<[NewsArticleDTO], NewsAPIError>) -> Void)
+    
+    //Rx
+    func articles(withKeywords keywords: String) -> Single<[NewsArticleDTO]>
 }

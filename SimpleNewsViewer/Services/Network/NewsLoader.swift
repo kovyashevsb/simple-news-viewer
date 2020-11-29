@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 class NewsLoader: NewsAPI {
     //MARK: Properties
@@ -32,6 +33,11 @@ class NewsLoader: NewsAPI {
         }
         lastRequest = request
         load(from: request, completion: completion)
+    }
+    //Rx
+    func articles(withKeywords keywords: String) -> Single<[NewsArticleDTO]> {
+        let request = NewsRouter.search(keywords: keywords).asURLRequest()
+        return load(from: request)
     }
     
     //MARK: Private methods
@@ -63,6 +69,28 @@ class NewsLoader: NewsAPI {
         
         return result
     }
+    //Rx
+    private func decode<Payload: Decodable>(data: Data) throws -> Payload {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        let codingData = try decoder.decode(Response<Payload>.self, from: data)
+        switch codingData {
+        case .success(let payload):
+            return payload
+        case .error(let code, let message):
+            print("decode error with code: \"\(code)\" message: \"\(message)\"")
+            switch code {
+            case C.invalidAPIKeyCode:
+                throw NewsAPIError.invalidAPIKey
+            case C.invalidParameterCode:
+                throw NewsAPIError.invalidParameters
+            case C.developerAccountLimitCode:
+                throw NewsAPIError.resultLimit
+            default:
+                throw NewsAPIError.server(code: code, message: message)
+            }
+        }
+    }
     
     private func load<Payload: Decodable>(from request: URLRequest, completion: @escaping (Result<Payload, NewsAPIError>) -> Void) {
         let task = urlSession.dataTask(with: request) { [weak self] (data, response, error) in
@@ -82,7 +110,32 @@ class NewsLoader: NewsAPI {
         }
         task.resume()
     }
-    
+    //Rx
+    private func load<Payload: Decodable>(from request: URLRequest) -> Single<Payload> {
+        return Single<Payload>.create { single in
+            let task = self.urlSession.dataTask(with: request) { (data, response, error) in
+                if error != nil {
+                    print("urlError.code.rawValue \((error as? URLError)?.code.rawValue)")
+                    print("URLError.cancelled.rawValue \(URLError.cancelled.rawValue)")
+                    single(.error(NewsAPIError.network))
+                } else {
+                    do {
+                        let data = data ?? Data()
+                        let result: Payload = try self.decode(data: data)
+                        single(.success(result))
+                    } catch let error {
+                        let error = error is NewsAPIError ? error as! NewsAPIError : .decoding
+                        single(.error(error))
+                    }
+                }
+            }
+            task.resume()
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+
     private func cancel(request: URLRequest) {
         urlSession.getAllTasks { (tasks) in
             tasks.filter {$0.originalRequest?.url == request.url}

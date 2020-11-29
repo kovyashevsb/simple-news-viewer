@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import RxSwift
 
 class DefaultNewsModel: NSObject, NewsModel {
     //MARK: - Properties
@@ -174,6 +175,19 @@ class DefaultNewsModel: NSObject, NewsModel {
                 completion(newResult)
             }
         }
+    }
+    
+    func articles(withKeywords keywords: String) -> Single<[NewsArticle]> {
+        loader.articles(withKeywords: keywords)
+            .flatMap({ (articleDTOs) -> Single<[NewsArticle]> in
+                Single.just(articleDTOs.map { DefaultNewsArticle.init(with: $0) })
+            })
+            .catchError({ (error) -> Single<[NewsArticle]> in
+                if let error = error as? NewsAPIError {
+                    throw NewsModelError.init(with: error)
+                }
+                throw error
+            })
     }
     
     func fetchArticlesFromEnabledChannels(completion: @escaping (Result<[NewsArticle], NewsModelError>) -> Void) {

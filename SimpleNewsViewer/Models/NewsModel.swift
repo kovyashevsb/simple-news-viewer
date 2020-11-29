@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import RxSwift
 
 enum NewsModelError: Error {
     case network
@@ -49,4 +50,7 @@ protocol NewsModel {
     
     func channels(sortedBy sort:NewsChannelSort, ascending: Bool) -> NSFetchedResultsController<NewsChannel>
     func articles(for channels:[NewsChannel], sortedBy sort:NewsArticleSort, ascending: Bool) -> NSFetchedResultsController<NewsArticle>
+    
+    //Rx
+    func articles(withKeywords keywords: String) -> Single<[NewsArticle]>
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 final class DefaultSearchableNewsViewModel: SearchableNewsViewModel {
     
@@ -19,6 +20,27 @@ final class DefaultSearchableNewsViewModel: SearchableNewsViewModel {
     func searchNews(withKeywords keywords: String) {
         self.keywords = keywords
         refresh()
+    }
+    //Rx    
+    func searchArticles(withKeywords keywords: String) -> Single<NewsViewModelState> {
+        if keywords.isEmpty {
+            return Single.just(.noItems(message: NSLocalizedString("No results", comment: "")))
+        } else {
+            return newsModel.articles(withKeywords: keywords)
+                .flatMap({ (articles) -> Single<NewsViewModelState> in
+                    if articles.isEmpty {
+                        return Single.just(.noItems(message: NSLocalizedString("No results", comment: "")))
+                    } else {
+                        return Single.just(.items(items: articles.map{ NewsViewModelState.Item(article: $0) }))
+                    }
+                })
+                .catchError({ (error) -> Single<NewsViewModelState> in
+                    if let error = error as? NewsModelError {
+                        return Single.just(.failure(error: error))
+                    }
+                    throw error
+                })
+        }
     }
 
     //MARK: - NewsViewModel
